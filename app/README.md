@@ -1,16 +1,17 @@
-# app
+# AI3Phase Flutter Dashboard
 
-A new Flutter project.
+Talks to the FastAPI backend (`/api/v1/...`).
 
-## Getting Started
+## Run
 
-This project is a starting point for a Flutter application.
+Start backend first, then:
 
-A few resources to get you started if this is your first Flutter project:
+```bash
+cd app
+flutter pub get
+flutter run -d chrome --dart-define=API_BASE=http://127.0.0.1:8000
+# or Linux desktop:
+flutter run -d linux --dart-define=API_BASE=http://127.0.0.1:8000
+```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Use **Sim healthy / Sim PL fault** buttons to exercise the UI without MQTT/hardware.

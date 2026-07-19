@@ -1,0 +1,17 @@
+sketch.md
+
+# Thesis generation artefacts
+thesis_gen/
+
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+Chapter3_Chapter4_Intelligent_Three_Phase_Load_Protection_System.docx
+fault.csv

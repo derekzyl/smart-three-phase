@@ -123,9 +123,29 @@ The ESP32 acts as the central intelligence hub — it simultaneously manages rea
 
 The project code is split into three main components:
 
-* **[firmware/](file:///home/cybergenii/Desktop/codes/embedded/ai3phase/firmware)**: ESP32-based microcontroller firmware, written in C++ (PlatformIO). Coordinates sensor reading, fault detection algorithms, relay isolation, OLED rendering, SIM800L command sending, and WiFi MQTT client communication.
-* **[backend/](file:///home/cybergenii/Desktop/codes/embedded/ai3phase/backend)**: Python services acting as a message broker bridge, processing telemetry streams, database persistence, and API services for remote dashboards.
-* **[app/](file:///home/cybergenii/Desktop/codes/embedded/ai3phase/app)**: Cross-platform Flutter mobile and web application dashboard displaying live data, alert history, and manual override switches.
+* **[firmware/](firmware/)**: ESP32 PlatformIO firmware — ADC/RMS, fault logic, relays, OLED, SIM800L, MQTT.
+* **[backend/](backend/)**: FastAPI + uv — MQTT bridge, SQLite, REST + WebSocket API for the dashboard.
+* **[app/](app/)**: Flutter dashboard — live voltages/currents, fault history, reset + sim controls.
+
+### Quick start (software stack)
+
+```bash
+# 1) API
+cd backend && cp .env.example .env && uv sync
+uv run uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+# Open http://127.0.0.1:8000/docs
+
+# 2) Flutter dashboard
+cd ../app && flutter pub get
+flutter run -d chrome --dart-define=API_BASE=http://127.0.0.1:8000
+
+# 3) Firmware (edit include/secrets.h first)
+cd ../firmware
+# DEMO_MODE=1 is enabled in platformio.ini for bench bring-up
+pio run -t upload && pio device monitor
+```
+
+Optional MQTT: Mosquitto on `127.0.0.1:1883`. Without a broker the API still works via `POST /api/v1/sim/telemetry`.
 
 ---
 

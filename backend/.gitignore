@@ -1,10 +1,11 @@
-# Python-generated files
+# Ignore secrets and local env
+.env
+data/*.db
+data/*.db-*
+
+# Python
 __pycache__/
 *.py[oc]
-build/
+.venv/
 dist/
-wheels/
-*.egg-info
-
-# Virtual environments
-.venv
+*.egg-info/
